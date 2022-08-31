@@ -46,6 +46,11 @@ public class BoardgamesappImpl extends AbstractComponentFacade implements Boardg
     }
 
     @Override
+    public Page<GameEto> getAllGames() {
+        return this.ucFindGame.getAllGames();
+    }
+
+    @Override
     public GameEto saveGame(GameEto game) {
 
         return this.ucManageGame.saveGame(game);

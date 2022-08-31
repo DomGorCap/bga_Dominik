@@ -24,4 +24,10 @@ public interface UcFindGame {
      */
     Page<GameEto> findGames(GameSearchCriteriaTo criteria);
 
+    /**
+     * Return a list of all Games.
+     *
+     * @return the {@link List} of all {@link GameEto}s.
+     */
+    Page<GameEto> getAllGames();
 }

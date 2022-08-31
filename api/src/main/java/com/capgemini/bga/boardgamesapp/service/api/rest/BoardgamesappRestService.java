@@ -54,6 +54,16 @@ public interface BoardgamesappRestService {
     @POST
     public Page<GameEto> findGames(GameSearchCriteriaTo searchCriteriaTo);
 
+
+    /**
+     * Delegates to {@link Boardgamesapp#getAllGames}.
+     *
+     * @return the {@link Page list} of all {@link GameEto}s.
+     */
+    @Path("/game/all")
+    @POST
+    public Page<GameEto> getAllGames();
+
     /**
      * Delegates to {@link Boardgamesapp#findGamePlay}.
      *

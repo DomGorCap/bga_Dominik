@@ -9,12 +9,17 @@ import com.capgemini.bga.general.common.api.security.ApplicationAccessControlCon
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Use case implementation for searching, filtering and getting Games
@@ -49,4 +54,27 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
         return mapPaginatedEntityList(games, GameEto.class);
     }
 
+    @Override
+    @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_FIND_GAMES)
+    public Page<GameEto> getAllGames() {
+
+        Page<GameEntity> gamesList = getGameRepository().findAll(PageRequest.of(0,Integer.MAX_VALUE));
+
+        return mapPaginatedEntityList(gamesList, GameEto.class);
+    }
+
+    //Alternative implementation of getAllGames() using map instead of mapList
+    /*
+    @Override
+    @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_FIND_GAMES)
+    public Page<GameEto> getAllGames() {
+
+        Page<GameEntity> gamesList = getGameRepository().findAll(PageRequest.of(0,Integer.MAX_VALUE));
+
+        List<GameEto> asEto = gamesList.stream()
+                .map(entity -> getBeanMapper().map(entity, GameEto.class))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(asEto, gamesList.getPageable(), gamesList.getTotalElements());
+    }*/
 }
