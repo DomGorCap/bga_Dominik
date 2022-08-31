@@ -58,9 +58,9 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
     @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_FIND_GAMES)
     public Page<GameEto> getAllGames() {
 
-        Page<GameEntity> gamesList = getGameRepository().findAll(PageRequest.of(0,Integer.MAX_VALUE));
-
-        return mapPaginatedEntityList(gamesList, GameEto.class);
+        List<GameEntity> gamesList = getGameRepository().findAll();
+        List<GameEto> gamesEto = getBeanMapper().mapList(gamesList, GameEto.class);
+        return new PageImpl<>(gamesEto, PageRequest.of(0, gamesList.size()), gamesList.size());
     }
 
     //Alternative implementation of getAllGames() using map instead of mapList
@@ -69,12 +69,12 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
     @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_FIND_GAMES)
     public Page<GameEto> getAllGames() {
 
-        Page<GameEntity> gamesList = getGameRepository().findAll(PageRequest.of(0,Integer.MAX_VALUE));
+        List<GameEntity> gamesList = getGameRepository().findAll();
 
-        List<GameEto> asEto = gamesList.stream()
+        List<GameEto> gamesEto = gamesList.stream()
                 .map(entity -> getBeanMapper().map(entity, GameEto.class))
                 .collect(Collectors.toList());
 
-        return new PageImpl<>(asEto, gamesList.getPageable(), gamesList.getTotalElements());
+        return new PageImpl<>(gamesEto, PageRequest.of(0, gamesEto.size()), gamesEto.size());
     }*/
 }
