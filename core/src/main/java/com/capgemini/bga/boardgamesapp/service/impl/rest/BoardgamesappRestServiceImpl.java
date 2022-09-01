@@ -42,6 +42,11 @@ public class BoardgamesappRestServiceImpl implements BoardgamesappRestService {
     }
 
     @Override
+    public Page<GameEto> getAllGames() {
+        return this.boardgamesapp.getAllGames();
+    }
+
+    @Override
     public GamePlayEto getGamePlay(long id) {
 
         return this.boardgamesapp.findGamePlay(id);
