@@ -1,6 +1,7 @@
 package com.capgemini.bga.boardgamesapp.logic.impl.usecase;
 
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GameEntity;
+import com.capgemini.bga.boardgamesapp.logic.api.to.GameCostTo;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GameEto;
 import com.capgemini.bga.boardgamesapp.logic.api.usecase.UcManageGame;
 import com.capgemini.bga.boardgamesapp.logic.base.usecase.AbstractGameUc;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Use case implementation for modifying and deleting Games
@@ -49,5 +51,28 @@ public class UcManageGameImpl extends AbstractGameUc implements UcManageGame {
         GameEntity resultEntity = getGameRepository().save(gameEntity);
         LOG.debug("Game with id '{}' has been created.", resultEntity.getId());
         return getBeanMapper().map(resultEntity, GameEto.class);
+    }
+
+    @Override
+    @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_SAVE_GAME)
+    public GameEto modifyGame(long id, GameCostTo game) {
+
+        Objects.requireNonNull(game, "cost");
+
+        Optional<GameEntity> foundEntity = getGameRepository().findById(id);
+        if (foundEntity.isPresent()) {
+            GameEntity gameEntity = foundEntity.get();
+            gameEntity.setCost(game.getCost());
+            GameEntity resultEntity = getGameRepository().save(gameEntity);
+            return getBeanMapper().map(resultEntity, GameEto.class);
+        }
+        else
+            return null;
+    }
+
+    @Override
+    @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_SAVE_GAME)
+    public GameEto changeGame(long id, GameEto game) {
+        return null;
     }
 }

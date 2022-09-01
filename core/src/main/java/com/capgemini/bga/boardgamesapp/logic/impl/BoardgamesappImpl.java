@@ -52,6 +52,16 @@ public class BoardgamesappImpl extends AbstractComponentFacade implements Boardg
     }
 
     @Override
+    public GameEto modifyGame(long id, GameCostTo game) {
+        return this.ucManageGame.modifyGame(id, game);
+    }
+
+    @Override
+    public GameEto changeGame(long id, GameEto game) {
+        return this.ucManageGame.changeGame(id, game);
+    }
+
+    @Override
     public boolean deleteGame(long id) {
 
         return this.ucManageGame.deleteGame(id);
