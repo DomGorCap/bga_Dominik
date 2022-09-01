@@ -18,7 +18,7 @@ public class GameEto extends AbstractEto implements Game {
 
     private BigDecimal complexity;
 
-    private boolean extension;
+    private boolean extension = true;
 
     @Override
     public String getName() {
