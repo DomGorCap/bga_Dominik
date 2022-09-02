@@ -42,16 +42,11 @@ public interface Game extends ApplicationEntity {
 
     public void setComplexity(BigDecimal complexity);
 
-    /**
-     * @return extension
-     */
+
+    public Extension getExtension();
+
+    public void setExtension(Extension extension);
 
     public boolean isExtension();
-
-    /**
-     * @param extension setter for extension attribute
-     */
-
-    public void setExtension(boolean extension);
 
 }

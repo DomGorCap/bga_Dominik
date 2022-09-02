@@ -4,7 +4,7 @@
         modificationCounter integer not null,
         complexity decimal(19,2),
         cost decimal(19,2),
-        extension boolean not null,
+        extension ENUM('FALSE', 'TRUE') DEFAULT 'FALSE',
         name varchar(255),
         primary key (id)
     );

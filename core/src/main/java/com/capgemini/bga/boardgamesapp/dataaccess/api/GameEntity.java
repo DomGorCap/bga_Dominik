@@ -1,10 +1,10 @@
 package com.capgemini.bga.boardgamesapp.dataaccess.api;
 
 import com.capgemini.bga.boardgamesapp.common.api.Game;
+import com.capgemini.bga.boardgamesapp.common.api.Extension;
 import com.capgemini.bga.general.dataaccess.api.ApplicationPersistenceEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,7 +15,12 @@ public class GameEntity extends ApplicationPersistenceEntity implements Game {
     private String name;
     private BigDecimal cost;
     private BigDecimal complexity;
-    private boolean extension;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "extension")
+    private Extension extension;
+
+
 
     /**
      * @return name
@@ -65,20 +70,20 @@ public class GameEntity extends ApplicationPersistenceEntity implements Game {
         this.complexity = complexity;
     }
 
-    /**
-     * @return extension
-     */
-    public boolean isExtension() {
-
+    @Override
+    public Extension getExtension() {
         return this.extension;
     }
 
-    /**
-     * @param extension the new value.
-     */
-    public void setExtension(boolean extension) {
-
+    @Override
+    public void setExtension(Extension extension) {
         this.extension = extension;
+    }
+
+    @Transient
+    @Override
+    public boolean isExtension() {
+        return getExtension() == Extension.TRUE;
     }
 
     @Override
@@ -111,7 +116,7 @@ public class GameEntity extends ApplicationPersistenceEntity implements Game {
         int result = this.name.hashCode();
         result = 31 * result + (this.cost != null ? this.cost.hashCode() : 0);
         result = 31 * result + (this.complexity != null ? this.complexity.hashCode() : 0);
-        result = 31 * result + (this.extension ? 1 : 0);
+        result = 31 * result + (this.extension != null ? this.extension.hashCode() : 0);
         return result;
     }
 

@@ -1,5 +1,6 @@
 package com.capgemini.bga.boardgamesapp.logic.api.to;
 
+import com.capgemini.bga.boardgamesapp.common.api.Extension;
 import com.capgemini.bga.boardgamesapp.common.api.Game;
 import com.devonfw.module.basic.common.api.to.AbstractEto;
 
@@ -18,7 +19,20 @@ public class GameEto extends AbstractEto implements Game {
 
     private BigDecimal complexity;
 
-    private boolean extension;
+    private Extension extension = Extension.TRUE;
+
+    public Extension getExtension() {
+        return this.extension;
+    }
+
+    public void setExtension(Extension extension) {
+        this.extension = extension;
+    }
+
+    @Override
+    public boolean isExtension() {
+        return getExtension() == Extension.TRUE;
+    }
 
     @Override
     public String getName() {
@@ -57,18 +71,6 @@ public class GameEto extends AbstractEto implements Game {
     }
 
     @Override
-    public boolean isExtension() {
-
-        return extension;
-    }
-
-    @Override
-    public void setExtension(boolean extension) {
-
-        this.extension = extension;
-    }
-
-    @Override
     public int hashCode() {
 
         final int prime = 31;
@@ -76,7 +78,7 @@ public class GameEto extends AbstractEto implements Game {
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         result = prime * result + ((this.cost == null) ? 0 : this.cost.hashCode());
         result = prime * result + ((this.complexity == null) ? 0 : this.complexity.hashCode());
-        result = prime * result + ((Boolean) extension).hashCode();
+        result = prime * result + ((this.extension == null) ? 0 : this.extension.hashCode());
         return result;
     }
 

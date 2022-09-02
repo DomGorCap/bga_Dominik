@@ -43,11 +43,11 @@ public class UcManageGameImpl extends AbstractGameUc implements UcManageGame {
 
         Objects.requireNonNull(game, "game");
 
-        GameEntity gameEntity = getBeanMapper().map(game, GameEntity.class);
+        GameEntity gameEntity = getGameMapper().toEntity(game);
 
         // initialize, validate gameEntity here if necessary
         GameEntity resultEntity = getGameRepository().save(gameEntity);
         LOG.debug("Game with id '{}' has been created.", resultEntity.getId());
-        return getBeanMapper().map(resultEntity, GameEto.class);
+        return getGameMapper().toEto(resultEntity);
     }
 }
