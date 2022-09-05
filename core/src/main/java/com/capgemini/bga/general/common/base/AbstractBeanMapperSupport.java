@@ -11,6 +11,8 @@ public abstract class AbstractBeanMapperSupport {
 
     private BeanMapper beanMapper;
 
+    private GameMapper gameMapper;
+
     /**
      * @return the {@link BeanMapper} instance.
      */
@@ -28,4 +30,12 @@ public abstract class AbstractBeanMapperSupport {
         this.beanMapper = beanMapper;
     }
 
+    public GameMapper getGameMapper() {
+        return this.gameMapper;
+    }
+
+    @Inject
+    public void setGameMapper(GameMapper gameMapper) {
+        this.gameMapper = gameMapper;
+    }
 }
