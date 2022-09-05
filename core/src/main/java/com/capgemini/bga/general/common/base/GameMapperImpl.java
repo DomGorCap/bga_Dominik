@@ -22,6 +22,7 @@ public class GameMapperImpl implements GameMapper{
         entity.setCost(eto.getCost());
         entity.setComplexity(eto.getComplexity());
         entity.setId(eto.getId());
+        entity.setModificationCounter(eto.getModificationCounter());
 
         return entity;
     }
@@ -38,6 +39,7 @@ public class GameMapperImpl implements GameMapper{
         eto.setCost(entity.getCost());
         eto.setComplexity(entity.getComplexity());
         eto.setId(entity.getId());
+        eto.setModificationCounter(entity.getModificationCounter());
 
         return eto;
     }
