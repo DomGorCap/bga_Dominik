@@ -27,9 +27,10 @@ public interface UcFindGame {
     /**
      * Returns a paginated list of Games with matching name.
      *
-     * @param name of the games to be returned.
+     * @param min minimal price of game to find.
+     * @param max maximal price of game to find.
      * @return the {@link List} of matching {@link GameEto}s.
      */
-    Page<GameEto> getGamesWithName(String name);
+    Page<GameEto> getGamesWithPriceInRange(int min, int max);
 
 }

@@ -50,8 +50,10 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
     }
 
     @Override
-    public Page<GameEto> getGamesWithName(String name) {
-        return null;
+    public Page<GameEto> getGamesWithPriceInRange(int min, int max) {
+
+        Page<GameEntity> games = getGameRepository().typedQuery_ii(min, max);
+        return mapPaginatedEntityList(games, GameEto.class);
     }
 
 }

@@ -46,6 +46,11 @@ public class BoardgamesappImpl extends AbstractComponentFacade implements Boardg
     }
 
     @Override
+    public Page<GameEto> getGamesWithPriceInRange(int min, int max) {
+        return this.ucFindGame.getGamesWithPriceInRange(min, max);
+    }
+
+    @Override
     public GameEto saveGame(GameEto game) {
 
         return this.ucManageGame.saveGame(game);

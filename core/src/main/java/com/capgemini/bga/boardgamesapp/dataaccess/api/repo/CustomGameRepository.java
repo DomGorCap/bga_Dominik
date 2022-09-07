@@ -12,30 +12,30 @@ public interface CustomGameRepository {
      * @param
      * @return the {@link Page} of the {@link GameEntity} objects that matched the query.
      */
-    Page<GameEntity> typedQuery();
+    Page<GameEntity> typedQuery_ii(int min, int max);
 
     /**
      * @param
      * @return the {@link Page} of the {@link GameEntity} objects that matched the query.
      */
-    Page<GameEntity> namedQuery();
+    Page<GameEntity> namedQuery_ii(int min, int max);
 
     /**
      * @param
      * @return the {@link Page} of the {@link GameEntity} objects that matched the query.
      */
-    Page<GameEntity> nativeQuery();
+    Page<GameEntity> nativeQuery_ii(int min, int max);
 
     /**
      * @param
      * @return the {@link Page} of the {@link GameEntity} objects that matched the query.
      */
-    Page<GameEntity> criteriaApiQuery();
+    Page<GameEntity> criteriaApiQuery_ii(int min, int max);
 
     /**
      * @param
      * @return the {@link Page} of the {@link GameEntity} objects that matched the query.
      */
-    Page<GameEntity> springDataQuery();
+    Page<GameEntity> springDataQuery_ii(int min, int max);
 
 }

@@ -89,4 +89,9 @@ public class BoardgamesappRestServiceImpl implements BoardgamesappRestService {
         return this.boardgamesapp.findPlayers(searchCriteriaTo);
     }
 
+    @Override
+    public Page<GameEto> getGamesWithPriceInRange(int min, int max) {
+        return this.boardgamesapp.getGamesWithPriceInRange(min, max);
+    }
+
 }

@@ -140,5 +140,5 @@ public interface BoardgamesappRestService {
      */
     @Path("/query/1")
     @POST
-    public Page<GameEto> getGamesWithName(String name);
+    public Page<GameEto> getGamesWithPriceInRange(int min, int max);
 }
