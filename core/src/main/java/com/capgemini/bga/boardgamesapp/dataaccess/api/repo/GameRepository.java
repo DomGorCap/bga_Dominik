@@ -5,20 +5,58 @@ import com.capgemini.bga.boardgamesapp.logic.api.to.GameSearchCriteriaTo;
 import com.devonfw.module.jpa.dataaccess.api.QueryUtil;
 import com.devonfw.module.jpa.dataaccess.api.data.DefaultRepository;
 import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.querydsl.core.alias.Alias.$;
+import static com.querydsl.core.alias.Alias.alias;
 
 /**
  * {@link DefaultRepository} for {@link GameEntity}
  */
 public interface GameRepository extends DefaultRepository<GameEntity>, CustomGameRepository {
+
+    /**
+     * @param name name of the {@link GameEntity}s to find.
+     * @return the {@link List} of the {@link GameEntity} objects that matched the search.
+     */
+    List<GameEntity> findByName(String name);
+
+    /**
+     * @param name name of the {@link GameEntity}s to find.
+     * @return the {@link Page} of the {@link GameEntity} objects that matched the search.
+     */
+    default Page<GameEntity> findByNamePage(String name) {
+        List<GameEntity> resultList = findByName(name);
+        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+    }
+
+    /**
+     * @param name name of the {@link GameEntity}s to find.
+     * @return the {@link Page} of the {@link GameEntity} objects that matched the search.
+     */
+    default Page<GameEntity> dslQuery(String name) {
+
+        GameEntity alias = alias(GameEntity.class, "game");
+
+        //GameEntity alias = newDslAlias();
+        JPAQuery<GameEntity> query = newDslQuery(alias);
+
+        QueryUtil.get().whereString(query, $(alias.getName()), name, null);
+
+        return QueryUtil.get().findPaginated(PageRequest.of(0, Integer.MAX_VALUE), query, true);
+    }
 
     /**
      * @param criteria the {@link GameSearchCriteriaTo} with the criteria to search.

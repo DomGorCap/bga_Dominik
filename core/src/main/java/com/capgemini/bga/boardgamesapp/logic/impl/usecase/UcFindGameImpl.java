@@ -51,7 +51,9 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
 
     @Override
     public Page<GameEto> getGamesWithName(String name) {
-        return null;
+
+        Page<GameEntity> games = getGameRepository().dslQuery(name);
+        return mapPaginatedEntityList(games, GameEto.class);
     }
 
 }
