@@ -80,11 +80,6 @@ public class GameEntity extends ApplicationPersistenceEntity implements Game {
         this.extension = extension;
     }
 
-    @Transient
-    @Override
-    public boolean isExtension() {
-        return getExtension() == Extension.TRUE;
-    }
 
     @Override
     public boolean equals(Object o) {

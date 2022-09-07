@@ -1,5 +1,6 @@
 package com.capgemini.bga.boardgamesapp.dataaccess.api.repo;
 
+import com.capgemini.bga.boardgamesapp.common.api.Extension;
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GameEntity;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GameSearchCriteriaTo;
 import com.devonfw.module.jpa.dataaccess.api.QueryUtil;
@@ -42,9 +43,9 @@ public interface GameRepository extends DefaultRepository<GameEntity> {
         if (complexity != null) {
             query.where($(alias.getComplexity()).eq(complexity));
         }
-        Boolean extension = criteria.getExtension();
+        Extension extension = criteria.getExtension();
         if (extension != null) {
-            query.where($(alias.isExtension()).eq(extension));
+            query.where($(alias.getExtension()).eq(extension));
         }
         if (criteria.getPageable() == null) {
             criteria.setPageable(PageRequest.of(0, Integer.MAX_VALUE));
@@ -92,9 +93,9 @@ public interface GameRepository extends DefaultRepository<GameEntity> {
                         break;
                     case "extension":
                         if (next.isAscending()) {
-                            query.orderBy($(alias.isExtension()).asc());
+                            query.orderBy($(alias.getExtension()).asc());
                         } else {
-                            query.orderBy($(alias.isExtension()).desc());
+                            query.orderBy($(alias.getExtension()).desc());
                         }
                         break;
                     default:

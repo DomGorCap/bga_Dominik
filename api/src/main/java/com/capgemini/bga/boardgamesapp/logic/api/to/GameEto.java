@@ -30,11 +30,6 @@ public class GameEto extends AbstractEto implements Game {
     }
 
     @Override
-    public boolean isExtension() {
-        return getExtension() == Extension.TRUE;
-    }
-
-    @Override
     public String getName() {
 
         return name;

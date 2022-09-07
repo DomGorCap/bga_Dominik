@@ -47,6 +47,4 @@ public interface Game extends ApplicationEntity {
 
     public void setExtension(Extension extension);
 
-    public boolean isExtension();
-
 }
