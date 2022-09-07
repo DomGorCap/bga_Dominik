@@ -14,11 +14,24 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 
 import static com.querydsl.core.alias.Alias.$;
+import static com.querydsl.core.alias.Alias.alias;
 
 /**
  * {@link DefaultRepository} for {@link GameEntity}
  */
 public interface GameRepository extends DefaultRepository<GameEntity>, CustomGameRepository {
+
+    /**
+     * @param
+     * @return the {@link Page} of the {@link GameEntity} objects that matched the search.
+     */
+    default Page<GameEntity> dslQuery() {
+
+        GameEntity alias = newDslAlias();
+        JPAQuery<GameEntity> query = newDslQuery(alias);
+
+        return QueryUtil.get().findPaginated(PageRequest.of(0, Integer.MAX_VALUE), query, true);
+    }
 
     /**
      * @param criteria the {@link GameSearchCriteriaTo} with the criteria to search.
