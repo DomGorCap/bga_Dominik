@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CustomGameRepositoryImpl implements CustomGameRepository {
@@ -20,7 +21,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
     EntityManager em;
 
     @Override
-    public Page<GameEntity> typedQuery_ii(int min, int max) {
+    public Page<GameEntity> typedQuery_ii(BigDecimal min, BigDecimal max) {
         TypedQuery<GameEntity> typedQuery
                 = this.em.createQuery("SELECT g FROM GameEntity g WHERE g.cost>:min AND g.cost<:max", GameEntity.class);
         typedQuery.setParameter("min", min);
@@ -30,7 +31,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
     }
 
     @Override
-    public Page<GameEntity> namedQuery_ii(int min, int max) {
+    public Page<GameEntity> namedQuery_ii(BigDecimal min, BigDecimal max) {
         Query namedQuery = this.em.createNamedQuery("GameEntity.getGamesWithPriceInRange");
         namedQuery.setParameter("min", min);
         namedQuery.setParameter("max", max);
@@ -39,9 +40,9 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
     }
 
     @Override
-    public Page<GameEntity> nativeQuery_ii(int min, int max) {
+    public Page<GameEntity> nativeQuery_ii(BigDecimal min, BigDecimal max) {
         Query nativeQuery
-                = this.em.createNativeQuery("SELECT * FROM game g WHERE g.name=:name", GameEntity.class);
+                = this.em.createNativeQuery("SELECT * FROM game g WHERE g.cost>:min AND g.cost<:max", GameEntity.class);
         nativeQuery.setParameter("min", min);
         nativeQuery.setParameter("max", max);
         List<GameEntity> resultList = nativeQuery.getResultList();
@@ -49,7 +50,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
     }
 
     @Override
-    public Page<GameEntity> criteriaApiQuery_ii(int min, int max) {
+    public Page<GameEntity> criteriaApiQuery_ii(BigDecimal min, BigDecimal max) {
         CriteriaBuilder criteriaBuilder = this.em.getCriteriaBuilder();
         CriteriaQuery<GameEntity> criteriaQuery = criteriaBuilder.createQuery(GameEntity.class);
         Root<GameEntity> gameRoot = criteriaQuery.from(GameEntity.class);
@@ -57,10 +58,5 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
                         .where(criteriaBuilder.between(gameRoot.get("cost"), min, max)))
                 .getResultList();
         return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
-    }
-
-    @Override
-    public Page<GameEntity> springDataQuery_ii(int min, int max) {
-        return null;
     }
 }

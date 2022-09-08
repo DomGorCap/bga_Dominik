@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.math.BigDecimal;
 
 /**
  * Implementation of component interface of boardgamesapp
@@ -46,8 +47,8 @@ public class BoardgamesappImpl extends AbstractComponentFacade implements Boardg
     }
 
     @Override
-    public Page<GameEto> getGamesWithPriceInRange(int min, int max) {
-        return this.ucFindGame.getGamesWithPriceInRange(min, max);
+    public Page<GameEto> getGamesWithCostInRange(BigDecimal min, BigDecimal max) {
+        return this.ucFindGame.getGamesWithCostInRange(min, max);
     }
 
     @Override
