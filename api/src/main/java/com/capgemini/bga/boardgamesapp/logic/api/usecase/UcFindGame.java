@@ -24,12 +24,4 @@ public interface UcFindGame {
      */
     Page<GameEto> findGames(GameSearchCriteriaTo criteria);
 
-    /**
-     * Returns a paginated list of Games with matching name.
-     *
-     * @param name of the games to be returned.
-     * @return the {@link List} of matching {@link GameEto}s.
-     */
-    Page<GameEto> getGamesWithName(String name);
-
 }

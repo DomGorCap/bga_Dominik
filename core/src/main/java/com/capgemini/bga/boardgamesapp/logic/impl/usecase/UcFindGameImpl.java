@@ -49,9 +49,4 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
         return mapPaginatedEntityList(games, GameEto.class);
     }
 
-    @Override
-    public Page<GameEto> getGamesWithName(String name) {
-        return null;
-    }
-
 }

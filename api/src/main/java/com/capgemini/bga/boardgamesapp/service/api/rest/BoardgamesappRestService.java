@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.math.BigDecimal;
 
 /**
  * The service interface for REST calls in order to execute the logic of component {@link Boardgamesapp}.
@@ -138,7 +139,7 @@ public interface BoardgamesappRestService {
      * @param name name of the games to find.
      * @return the {@link Page list} of matching {@link GameEto}s.
      */
-    @Path("/query/1")
+    @Path("/query/3")
     @POST
-    public Page<GameEto> getGamesWithName(String name);
+    public Page<GamePlayEto> getGamePlaysWithMinGameCost(BigDecimal minGameCost);
 }
