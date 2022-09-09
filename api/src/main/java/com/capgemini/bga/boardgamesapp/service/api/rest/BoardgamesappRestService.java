@@ -55,6 +55,28 @@ public interface BoardgamesappRestService {
     public Page<GameEto> findGames(GameSearchCriteriaTo searchCriteriaTo);
 
     /**
+     * Delegates to {@link Boardgamesapp#modifyGame}.
+     *
+     * @param id ID of the {@link GameEto} to be modified
+     * @param game game the {@link GameEto} to be modified
+     * @return the recently modified {@link GameEto}
+     */
+    @Path("/game/{id}")
+    @PATCH
+    GameEto modifyGame(@PathParam("id") long id, GameCostTo game);
+
+    /**
+     * Delegates to {@link Boardgamesapp#changeGame}.
+     *
+     * @param id ID of the {@link GameEto} to be changed
+     * @param game game the {@link GameEto} to be changed
+     * @return the recently modified {@link GameEto}
+     */
+    @Path("/game/{id}")
+    @PUT
+    GameEto changeGame(@PathParam("id") long id, GameEto game);
+
+    /**
      * Delegates to {@link Boardgamesapp#findGamePlay}.
      *
      * @param id the ID of the {@link GamePlayEto}
