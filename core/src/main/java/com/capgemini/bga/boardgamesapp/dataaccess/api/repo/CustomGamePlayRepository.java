@@ -36,11 +36,4 @@ public interface CustomGamePlayRepository {
      * @return the {@link Page} of the {@link GameEntity} objects that matched the query.
      */
     Page<GamePlayEntity> criteriaApiQuery_iii(BigDecimal minGameCost);
-
-    /**
-     * @param
-     * @return the {@link Page} of the {@link GameEntity} objects that matched the query.
-     */
-    Page<GamePlayEntity> springDataQuery_iii(BigDecimal minGameCost);
-
 }

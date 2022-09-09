@@ -18,6 +18,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,7 +56,10 @@ public class UcFindGamePlayImpl extends AbstractGamePlayUc implements UcFindGame
 
     @Override
     public Page<GamePlayEto> getGamePlaysWithMinGameCost(BigDecimal minGameCost) {
-        Page<GamePlayEntity> games = getGamePlayRepository().criteriaApiQuery_iii(minGameCost);
+
+        System.out.println(getGamePlayRepository().findByGameId(1L));
+
+        Page<GamePlayEntity> games = getGamePlayRepository().findByGameCostGreaterThanPage(minGameCost);
         return mapPaginatedEntityList(games, GamePlayEto.class);
     }
 

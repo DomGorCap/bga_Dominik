@@ -13,7 +13,8 @@ import java.util.List;
 public class GamePlayEntity extends ApplicationPersistenceEntity implements GamePlay {
 
     private static final long serialVersionUID = 1L;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id")
     private GameEntity game;
     private BigDecimal duration;
     private List<PlayerEntity> players = new ArrayList<>();

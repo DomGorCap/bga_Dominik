@@ -16,6 +16,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
+import javax.ws.rs.core.MediaType;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -72,10 +73,5 @@ public class CustomGamePlayRepositoryImpl implements CustomGamePlayRepository {
         List<GamePlayEntity> resultList = this.em.createQuery(criteriaQuery.select(gameRoot))
             .getResultList();
         return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
-    }
-
-    @Override
-    public Page<GamePlayEntity> springDataQuery_iii(BigDecimal minGameCost) {
-        return null;
     }
 }
