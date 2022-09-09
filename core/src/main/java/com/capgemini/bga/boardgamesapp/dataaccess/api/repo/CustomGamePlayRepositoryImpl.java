@@ -27,34 +27,26 @@ public class CustomGamePlayRepositoryImpl implements CustomGamePlayRepository {
     @Override
     public Page<GamePlayEntity> typedQuery_iii(BigDecimal minGameCost) {
         TypedQuery<GamePlayEntity> typedQuery
-                = this.em.createQuery("SELECT gp FROM GamePlayEntity gp, GameEntity g", GamePlayEntity.class);
-        //typedQuery.setParameter("cost", minGameCost);
+                = this.em.createQuery("SELECT gp FROM GamePlayEntity gp, GameEntity g WHERE g.cost>=:cost AND gp.game=g", GamePlayEntity.class);
+        typedQuery.setParameter("cost", minGameCost);
         List<GamePlayEntity> resultList = typedQuery.getResultList();
-
-        TypedQuery<GameEntity> typedQuery2
-                = this.em.createQuery("SELECT gp.game FROM GamePlayEntity gp, GameEntity g", GameEntity.class);
-        //typedQuery.setParameter("cost", minGameCost);
-        List<GameEntity> resultList2 = typedQuery2.getResultList();
-        System.out.println(resultList2);
-
         return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     @Override
     public Page<GamePlayEntity> namedQuery_iii(BigDecimal minGameCost) {
-        Query namedQuery = this.em.createNamedQuery("GameEntity.getGamesWithName");
+        Query namedQuery = this.em.createNamedQuery("GamePlayEntity.getGamePlaysWithMinGameCost");
         namedQuery.setParameter("cost", minGameCost);
         List<GamePlayEntity> resultList = namedQuery.getResultList();
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     @Override
     public Page<GamePlayEntity> nativeQuery_iii(BigDecimal minGameCost) {
         Query nativeQuery
-                = this.em.createNativeQuery("SELECT * FROM game_play", GamePlayEntity.class);
-        //nativeQuery.setParameter("cost", minGameCost);
+                = this.em.createNativeQuery("SELECT * FROM game_play JOIN game ON game_play.game_id=game.id WHERE game.cost>=:cost", GamePlayEntity.class);
+        nativeQuery.setParameter("cost", minGameCost);
         List<GamePlayEntity> resultList = nativeQuery.getResultList();
-        System.out.println(resultList);
         return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
@@ -63,15 +55,13 @@ public class CustomGamePlayRepositoryImpl implements CustomGamePlayRepository {
         CriteriaBuilder criteriaBuilder = this.em.getCriteriaBuilder();
         CriteriaQuery<GamePlayEntity> criteriaQuery = criteriaBuilder.createQuery(GamePlayEntity.class);
 
-        Metamodel m = this.em.getMetamodel();
-        EntityType<GamePlayEntity> GamePlayEntity_ = m.entity(GamePlayEntity.class);
-
         Root<GamePlayEntity> gameRoot = criteriaQuery.from(GamePlayEntity.class);
-        Join<GamePlayEntity, GameEntity> join = gameRoot.join(GamePlayEntity_.getSet("game", GameEntity.class));
+        gameRoot.join("game");
 
+        List<GamePlayEntity> resultList = this.em.createQuery(criteriaQuery.select(gameRoot)
+                .where(criteriaBuilder.greaterThanOrEqualTo(gameRoot.get("game").get("cost"), minGameCost)))
+                        .getResultList();
 
-        List<GamePlayEntity> resultList = this.em.createQuery(criteriaQuery.select(gameRoot))
-            .getResultList();
         return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 }

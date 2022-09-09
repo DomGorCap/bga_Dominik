@@ -23,39 +23,32 @@ import static com.querydsl.core.alias.Alias.$;
  */
 public interface GamePlayRepository extends DefaultRepository<GamePlayEntity>, CustomGamePlayRepository {
 
+    /**
+     * @param min minimal cost of the {@link GameEntity}.
+     * @return the {@link Page} of the {@link GamePlayEntity} objects that matched the search.
+     */
+    List<GamePlayEntity> findByGameCostGreaterThanEqual(BigDecimal min);
 
-
-    List<GamePlayEntity> findByGameId(long id);
-
-    List<GamePlayEntity> findByGameCostGreaterThan(BigDecimal min);
-
-    default Page<GamePlayEntity> findByGameCostGreaterThanPage(BigDecimal min) {
-        List<GamePlayEntity> resultList = findByGameCostGreaterThan(min);
+    /**
+     * @param min minimal cost of the {@link GameEntity}.
+     * @return the {@link Page} of the {@link GamePlayEntity} objects that matched the search.
+     */
+    default Page<GamePlayEntity> findByGameCostGreaterThanEqualPage(BigDecimal min) {
+        List<GamePlayEntity> resultList = findByGameCostGreaterThanEqual(min);
         return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
-
     /**
-     * @param min minimal cost of the {@link GameEntity} to find.
-     * @param max maximal cost of the {@link GameEntity} to find.
-     * @return the {@link Page} of the {@link GameEntity} objects that matched the search.
+     * @param min minimal cost of the {@link GameEntity}.
+     * @return the {@link Page} of the {@link GamePlayEntity} objects that matched the search.
      */
-    default Page<GamePlayEntity> findByCostBetweenPage(BigDecimal min, BigDecimal max) {
-        return null;
-    }
+    default Page<GamePlayEntity> dslQuery(BigDecimal min) {
 
-    /**
-     * @param min minimal cost of the {@link GameEntity} to find.
-     * @param max maximal cost of the {@link GameEntity} to find.
-     * @return the {@link Page} of the {@link GameEntity} objects that matched the search.
-     */
-    default Page<GamePlayEntity> dslQuery(BigDecimal min, BigDecimal max) {
+        GamePlayEntity gamePlayAlias = newDslAlias();
 
-        GamePlayEntity alias = newDslAlias();
-
-        JPAQuery<GamePlayEntity> query = newDslQuery(alias);
-
-        //query.where($(alias.getCost()).between(min, max));
+        JPAQuery<GamePlayEntity> query = newDslQuery(gamePlayAlias)
+                .where($(gamePlayAlias.getGame().getCost()).gt(min)
+                        .or($(gamePlayAlias.getGame().getCost()).eq(min)));
 
         return QueryUtil.get().findPaginated(PageRequest.of(0, Integer.MAX_VALUE), query, true);
     }

@@ -1,5 +1,6 @@
 package com.capgemini.bga.boardgamesapp.logic.api.usecase;
 
+import com.capgemini.bga.boardgamesapp.logic.api.Boardgamesapp;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GameEto;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GamePlayEto;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GamePlaySearchCriteriaTo;
@@ -27,10 +28,10 @@ public interface UcFindGamePlay {
     Page<GamePlayEto> findGamePlays(GamePlaySearchCriteriaTo criteria);
 
     /**
-     * Returns a paginated list of Games with matching name.
+     * Returns a paginated list of GamePlays where the cost of the game played is bigger or equal to the specified value.
      *
-     * @param name of the games to be returned.
-     * @return the {@link List} of matching {@link GameEto}s.
+     * @param minGameCost minimal cost of the games played in gameplay to find.
+     * @return the {@link List} of matching {@link GamePlayEto}s.
      */
     Page<GamePlayEto> getGamePlaysWithMinGameCost(BigDecimal minGameCost);
 

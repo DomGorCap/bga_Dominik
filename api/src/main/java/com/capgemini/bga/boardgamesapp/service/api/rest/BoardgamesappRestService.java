@@ -134,10 +134,10 @@ public interface BoardgamesappRestService {
     public Page<PlayerEto> findPlayers(PlayerSearchCriteriaTo searchCriteriaTo);
 
     /**
-     * Delegates to {@link Boardgamesapp#getGamesWithName}.
+     * Delegates to {@link Boardgamesapp#getGamePlaysWithMinGameCost}.
      *
-     * @param name name of the games to find.
-     * @return the {@link Page list} of matching {@link GameEto}s.
+     * @param minGameCost minimal cost of the games played in gameplay to find.
+     * @return the {@link Page list} of matching {@link GamePlayEto}s.
      */
     @Path("/query/3")
     @POST

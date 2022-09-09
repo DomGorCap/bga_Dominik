@@ -56,10 +56,7 @@ public class UcFindGamePlayImpl extends AbstractGamePlayUc implements UcFindGame
 
     @Override
     public Page<GamePlayEto> getGamePlaysWithMinGameCost(BigDecimal minGameCost) {
-
-        System.out.println(getGamePlayRepository().findByGameId(1L));
-
-        Page<GamePlayEntity> games = getGamePlayRepository().findByGameCostGreaterThanPage(minGameCost);
+        Page<GamePlayEntity> games = getGamePlayRepository().criteriaApiQuery_iii(minGameCost);
         return mapPaginatedEntityList(games, GamePlayEto.class);
     }
 

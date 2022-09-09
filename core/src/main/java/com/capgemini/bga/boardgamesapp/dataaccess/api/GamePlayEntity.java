@@ -10,11 +10,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "game_play")
+@NamedQuery(name = "GamePlayEntity.getGamePlaysWithMinGameCost", query = "SELECT gp FROM GamePlayEntity gp, GameEntity g WHERE g.cost>=:cost AND gp.game=g")
 public class GamePlayEntity extends ApplicationPersistenceEntity implements GamePlay {
 
     private static final long serialVersionUID = 1L;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id")
     private GameEntity game;
     private BigDecimal duration;
     private List<PlayerEntity> players = new ArrayList<>();
