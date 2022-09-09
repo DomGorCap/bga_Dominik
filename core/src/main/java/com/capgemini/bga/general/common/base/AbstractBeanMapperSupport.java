@@ -5,7 +5,7 @@ import com.devonfw.module.beanmapping.common.api.BeanMapper;
 import javax.inject.Inject;
 
 /**
- * This abstract class provides {@link #getBeanMapper() access} to the {@link BeanMapper}.
+ * This abstract class provides {@link #getBeanMapper() access} and {@link #getGameMapper()} access to the {@link BeanMapper}.
  */
 public abstract class AbstractBeanMapperSupport {
 
@@ -30,10 +30,16 @@ public abstract class AbstractBeanMapperSupport {
         this.beanMapper = beanMapper;
     }
 
+    /**
+     * @return the {@link GameMapper} instance.
+     */
     public GameMapper getGameMapper() {
         return this.gameMapper;
     }
 
+    /**
+     * @param gameMapper is the {@link GameMapper} to {@link Inject}
+     */
     @Inject
     public void setGameMapper(GameMapper gameMapper) {
         this.gameMapper = gameMapper;

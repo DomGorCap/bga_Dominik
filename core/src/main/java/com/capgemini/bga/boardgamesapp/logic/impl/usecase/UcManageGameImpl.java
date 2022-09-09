@@ -65,8 +65,7 @@ public class UcManageGameImpl extends AbstractGameUc implements UcManageGame {
         if (foundEntity.isPresent()) {
             GameEntity gameEntity = foundEntity.get();
             gameEntity.setCost(game.getCost());
-            GameEntity resultEntity = getGameRepository().save(gameEntity);
-            return getBeanMapper().map(resultEntity, GameEto.class);
+            return getBeanMapper().map(gameEntity, GameEto.class);
         }
         else
             return null;
@@ -75,12 +74,10 @@ public class UcManageGameImpl extends AbstractGameUc implements UcManageGame {
     @Override
     @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_SAVE_GAME)
     public GameEto changeGame(long id, GameEto game) {
-
         Objects.requireNonNull(game, "game");
 
         Optional<GameEntity> foundEntity = getGameRepository().findById(id);
         if (foundEntity.isPresent()) {
-
             GameEntity gameEntity = foundEntity.get();
             GameEntity gameToSave = getGameMapper().toEntity(game);
 
@@ -89,9 +86,7 @@ public class UcManageGameImpl extends AbstractGameUc implements UcManageGame {
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
             }
-
-            GameEntity resultEntity = getGameRepository().save(gameEntity);
-            return getGameMapper().toEto(resultEntity);
+            return getGameMapper().toEto(gameEntity);
         }
         else
             return null;

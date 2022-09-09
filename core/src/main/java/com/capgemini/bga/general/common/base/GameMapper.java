@@ -7,7 +7,6 @@ import com.capgemini.bga.boardgamesapp.logic.api.to.GameEto;
  * Mapper between GameEto and GameEntity.
  */
 public interface GameMapper {
-
     /**
      * @param eto the {@link GameEto} to be mapped.
      * @return {@link GameEntity} with mapped parameters.
