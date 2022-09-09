@@ -70,12 +70,16 @@ public class GameEntity extends ApplicationPersistenceEntity implements Game {
         this.complexity = complexity;
     }
 
-    @Override
+    /**
+     * @return extension
+     */
     public Extension getExtension() {
         return this.extension;
     }
 
-    @Override
+    /**
+     * @param extension the new value.
+     */
     public void setExtension(Extension extension) {
         this.extension = extension;
     }
