@@ -17,7 +17,7 @@ import java.util.List;
 public class CustomGameRepositoryImpl implements CustomGameRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     @Override
     public Page<GameEntity> typedQuery_i(String name) {
@@ -25,7 +25,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
                 = this.em.createQuery("SELECT g FROM GameEntity g WHERE g.name=:name", GameEntity.class);
         typedQuery.setParameter("name", name);
         List<GameEntity> resultList = typedQuery.getResultList();
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
         Query namedQuery = this.em.createNamedQuery("GameEntity.getGamesWithName");
         namedQuery.setParameter("name", name);
         List<GameEntity> resultList = namedQuery.getResultList();
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
                 = this.em.createNativeQuery("SELECT * FROM game g WHERE g.name=:name", GameEntity.class);
         nativeQuery.setParameter("name", name);
         List<GameEntity> resultList = nativeQuery.getResultList();
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
         List<GameEntity> resultList = this.em.createQuery(criteriaQuery.select(gameRoot)
                         .where(criteriaBuilder.equal(gameRoot.get("name"), name)))
                 .getResultList();
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     @Override
