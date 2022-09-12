@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 /**
@@ -50,8 +51,9 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
     }
 
     @Override
-    public Page<GameEto> getGamesWithName(String name) {
-        return null;
+    public Page<GameEto> getGamesWithAnyGamePlayLonger(BigDecimal duration) {
+        Page<GameEntity> games = getGameRepository().getGamesWithAnyGamePlayLongerPage(duration);
+        return mapPaginatedEntityList(games, GameEto.class);
     }
 
 }

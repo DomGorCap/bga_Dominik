@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.math.BigDecimal;
 
 /**
  * Implementation of component interface of boardgamesapp
@@ -43,6 +44,11 @@ public class BoardgamesappImpl extends AbstractComponentFacade implements Boardg
     public Page<GameEto> findGames(GameSearchCriteriaTo criteria) {
 
         return this.ucFindGame.findGames(criteria);
+    }
+
+    @Override
+    public Page<GameEto> getGamesWithAnyGamePlayLonger(BigDecimal duration) {
+        return this.ucFindGame.getGamesWithAnyGamePlayLonger(duration);
     }
 
     @Override

@@ -1,17 +1,22 @@
 package com.capgemini.bga.boardgamesapp.dataaccess.api.repo;
 
+import com.capgemini.bga.boardgamesapp.common.api.GamePlay;
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GameEntity;
+import com.capgemini.bga.boardgamesapp.dataaccess.api.GamePlayEntity;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GameSearchCriteriaTo;
 import com.devonfw.module.jpa.dataaccess.api.QueryUtil;
 import com.devonfw.module.jpa.dataaccess.api.data.DefaultRepository;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.querydsl.core.alias.Alias.$;
 import static com.querydsl.core.alias.Alias.alias;
@@ -21,13 +26,23 @@ import static com.querydsl.core.alias.Alias.alias;
  */
 public interface GameRepository extends DefaultRepository<GameEntity>, CustomGameRepository {
 
+    @Query("SELECT DISTINCT g FROM GameEntity g, GamePlayEntity gp WHERE gp.duration>?1 AND gp.game=g")
+    List<GameEntity> getGamesWithAnyGamePlayLonger(BigDecimal duration);
+
+    default Page<GameEntity> getGamesWithAnyGamePlayLongerPage(BigDecimal duration) {
+        List<GameEntity> resultList = getGamesWithAnyGamePlayLonger(duration);
+        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+    }
+
     /**
-     * @param
+     * @param min minimal cost of the {@link GameEntity} to find.
+     * @param max maximal cost of the {@link GameEntity} to find.
      * @return the {@link Page} of the {@link GameEntity} objects that matched the search.
      */
-    default Page<GameEntity> dslQuery() {
+    default Page<GameEntity> dslQuery(BigDecimal min, BigDecimal max) {
 
         GameEntity alias = newDslAlias();
+        GamePlayEntity alias2 = alias(GamePlayEntity.class, "game_play");
         JPAQuery<GameEntity> query = newDslQuery(alias);
 
         return QueryUtil.get().findPaginated(PageRequest.of(0, Integer.MAX_VALUE), query, true);

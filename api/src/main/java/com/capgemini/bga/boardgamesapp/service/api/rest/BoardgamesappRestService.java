@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * The service interface for REST calls in order to execute the logic of component {@link Boardgamesapp}.
@@ -133,12 +135,12 @@ public interface BoardgamesappRestService {
     public Page<PlayerEto> findPlayers(PlayerSearchCriteriaTo searchCriteriaTo);
 
     /**
-     * Delegates to {@link Boardgamesapp#getGamesWithName}.
+     * Delegates to {@link Boardgamesapp#getGamesWithAnyGamePlayLonger}.
      *
-     * @param name name of the games to find.
-     * @return the {@link Page list} of matching {@link GameEto}s.
+     * @param duration of the gameplay where the game was played.
+     * @return the {@link Page list} of matching {@link PlayerEto}s.
      */
-    @Path("/query/1")
+    @Path("/query/4")
     @POST
-    public Page<GameEto> getGamesWithName(String name);
+    Page<GameEto> getGamesWithAnyGamePlayLonger(BigDecimal duration);
 }
