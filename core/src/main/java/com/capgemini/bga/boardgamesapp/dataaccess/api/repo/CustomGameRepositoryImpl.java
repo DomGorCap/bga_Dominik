@@ -27,7 +27,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
         typedQuery.setParameter("min", min);
         typedQuery.setParameter("max", max);
         List<GameEntity> resultList = typedQuery.getResultList();
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
         namedQuery.setParameter("min", min);
         namedQuery.setParameter("max", max);
         List<GameEntity> resultList = namedQuery.getResultList();
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
         nativeQuery.setParameter("min", min);
         nativeQuery.setParameter("max", max);
         List<GameEntity> resultList = nativeQuery.getResultList();
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     @Override
@@ -57,6 +57,6 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
         List<GameEntity> resultList = this.em.createQuery(criteriaQuery.select(gameRoot)
                         .where(criteriaBuilder.between(gameRoot.get("cost"), min, max)))
                 .getResultList();
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 }

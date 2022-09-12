@@ -37,7 +37,7 @@ public interface GameRepository extends DefaultRepository<GameEntity>, CustomGam
      */
     default Page<GameEntity> findByCostBetweenPage(BigDecimal min, BigDecimal max) {
         List<GameEntity> resultList = findByCostBetween(min, max);
-        return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 
     /**

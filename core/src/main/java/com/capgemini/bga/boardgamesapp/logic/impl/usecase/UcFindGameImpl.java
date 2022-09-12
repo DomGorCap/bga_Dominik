@@ -53,7 +53,7 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
     @Override
     public Page<GameEto> getGamesWithCostInRange(BigDecimal min, BigDecimal max) {
 
-        Page<GameEntity> games = getGameRepository().dslQuery(min, max);
+        Page<GameEntity> games = getGameRepository().namedQuery_ii(min, max);
         return mapPaginatedEntityList(games, GameEto.class);
     }
 
