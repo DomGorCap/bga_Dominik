@@ -1,6 +1,6 @@
 package com.capgemini.bga.boardgamesapp.logic.api.to;
 
-import com.capgemini.bga.boardgamesapp.common.api.Extension;
+import com.capgemini.bga.boardgamesapp.common.api.enums.Extension;
 import com.capgemini.bga.boardgamesapp.common.api.Game;
 import com.devonfw.module.basic.common.api.to.AbstractEto;
 
@@ -19,12 +19,14 @@ public class GameEto extends AbstractEto implements Game {
 
     private BigDecimal complexity;
 
-    private Extension extension = Extension.TRUE;
+    private Extension extension;
 
+    @Override
     public Extension getExtension() {
         return this.extension;
     }
 
+    @Override
     public void setExtension(Extension extension) {
         this.extension = extension;
     }

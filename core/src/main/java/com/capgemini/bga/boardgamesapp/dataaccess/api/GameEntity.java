@@ -1,7 +1,7 @@
 package com.capgemini.bga.boardgamesapp.dataaccess.api;
 
 import com.capgemini.bga.boardgamesapp.common.api.Game;
-import com.capgemini.bga.boardgamesapp.common.api.Extension;
+import com.capgemini.bga.boardgamesapp.common.api.enums.Extension;
 import com.capgemini.bga.general.dataaccess.api.ApplicationPersistenceEntity;
 
 import javax.persistence.*;
@@ -17,10 +17,7 @@ public class GameEntity extends ApplicationPersistenceEntity implements Game {
     private BigDecimal complexity;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "extension")
     private Extension extension;
-
-
 
     /**
      * @return name

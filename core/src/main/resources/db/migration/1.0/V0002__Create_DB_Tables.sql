@@ -4,7 +4,7 @@
         modificationCounter integer not null,
         complexity decimal(19,2),
         cost decimal(19,2),
-        extension ENUM('FALSE', 'TRUE') DEFAULT 'FALSE',
+        extension varchar(10) DEFAULT 'TRUE' CHECK( extension IN ('FALSE','TRUE') ) ,
         name varchar(255),
         primary key (id)
     );

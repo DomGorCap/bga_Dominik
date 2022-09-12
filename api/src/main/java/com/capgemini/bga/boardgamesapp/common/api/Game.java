@@ -1,5 +1,6 @@
 package com.capgemini.bga.boardgamesapp.common.api;
 
+import com.capgemini.bga.boardgamesapp.common.api.enums.Extension;
 import com.capgemini.bga.general.common.api.ApplicationEntity;
 
 import java.math.BigDecimal;

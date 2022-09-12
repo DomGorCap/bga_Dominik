@@ -1,6 +1,6 @@
 package com.capgemini.bga.boardgamesapp.dataaccess.api.repo;
 
-import com.capgemini.bga.boardgamesapp.common.api.Extension;
+import com.capgemini.bga.boardgamesapp.common.api.enums.Extension;
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GameEntity;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GameSearchCriteriaTo;
 import com.devonfw.module.jpa.dataaccess.api.QueryUtil;

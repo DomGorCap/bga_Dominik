@@ -1,6 +1,6 @@
 package com.capgemini.bga.boardgamesapp.logic.api.to;
 
-import com.capgemini.bga.boardgamesapp.common.api.Extension;
+import com.capgemini.bga.boardgamesapp.common.api.enums.Extension;
 import com.capgemini.bga.general.common.api.to.AbstractSearchCriteriaTo;
 import com.devonfw.module.basic.common.api.query.StringSearchConfigTo;
 
