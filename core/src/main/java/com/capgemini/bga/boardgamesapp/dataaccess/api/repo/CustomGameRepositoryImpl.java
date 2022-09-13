@@ -13,13 +13,14 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class CustomGameRepositoryImpl implements CustomGameRepository {
 
     @PersistenceContext
-    EntityManager em;
+    public EntityManager em;
 
     @Override
     public Page<GameEntity> typedQuery_iv(BigDecimal duration) {
@@ -49,26 +50,20 @@ public class CustomGameRepositoryImpl implements CustomGameRepository {
 
     @Override
     public Page<GameEntity> criteriaApiQuery_iv(BigDecimal duration) {
-        /* CriteriaBuilder criteriaBuilder = this.em.getCriteriaBuilder();
-        CriteriaQuery<GameEntity> criteriaQuery = criteriaBuilder.createQuery(GameEntity.class);
-        Root<GameEntity> gameRoot = criteriaQuery.from(GameEntity.class);
-        gameRoot.join("game_play");
-        List<GameEntity> resultList = this.em.createQuery(criteriaQuery.select(gameRoot)
-        )//.where(criteriaBuilder.between(gameRoot.get("cost"), min, max)))
-                .getResultList();
-
-        */
-    /*
         CriteriaBuilder criteriaBuilder = this.em.getCriteriaBuilder();
-        CriteriaQuery<GamePlayEntity> criteriaQuery = criteriaBuilder.createQuery(GamePlayEntity.class);
-        Root<GamePlayEntity> gameRoot = criteriaQuery.from(GamePlayEntity.class);
-        gameRoot.join("game");
-        List<GameEntity> resultList = this.em.createQuery(criteriaQuery.select(gameRoot.get("game"))
-                )//.where(criteriaBuilder.between(gameRoot.get("cost"), min, max)))
+        CriteriaQuery<GameEntity> criteriaQuery = criteriaBuilder.createQuery(GameEntity.class);
+        Root<GameEntity> root = criteriaQuery.from(GameEntity.class);
+
+        Subquery<List> sub = criteriaQuery.subquery(List.class);
+        Root<GamePlayEntity> subRoot = sub.from(GamePlayEntity.class);
+
+        sub.select(subRoot.get("game"));
+        sub.where(criteriaBuilder.gt(subRoot.get("duration"), duration));
+
+        List<GameEntity> resultList = this.em.createQuery(criteriaQuery.select(root)
+                                .where(root.get("id").in(sub)).distinct(true))
                 .getResultList();
 
-        */
-        return null;
-        //return new PageImpl<>(resultList, PageRequest.of(0, resultList.size()), resultList.size());
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
     }
 }

@@ -51,8 +51,9 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
     }
 
     @Override
+    @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_FIND_GAMES)
     public Page<GameEto> getGamesWithAnyGamePlayLonger(BigDecimal duration) {
-        Page<GameEntity> games = getGameRepository().getGamesWithAnyGamePlayLongerPage(duration);
+        Page<GameEntity> games = getGameRepository().criteriaApiQuery_iv(duration);
         return mapPaginatedEntityList(games, GameEto.class);
     }
 
