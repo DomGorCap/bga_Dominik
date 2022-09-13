@@ -89,4 +89,9 @@ public class BoardgamesappRestServiceImpl implements BoardgamesappRestService {
         return this.boardgamesapp.findPlayers(searchCriteriaTo);
     }
 
+    @Override
+    public Page<GameEto> getGamesWithName(String name) {
+        return this.boardgamesapp.getGamesWithName(name);
+    }
+
 }

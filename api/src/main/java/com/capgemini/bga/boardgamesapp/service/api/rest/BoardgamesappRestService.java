@@ -132,4 +132,13 @@ public interface BoardgamesappRestService {
     @POST
     public Page<PlayerEto> findPlayers(PlayerSearchCriteriaTo searchCriteriaTo);
 
+    /**
+     * Delegates to {@link Boardgamesapp#getGamesWithName}.
+     *
+     * @param name name of the games to find.
+     * @return the {@link Page list} of matching {@link GameEto}s.
+     */
+    @Path("/query/1")
+    @POST
+    public Page<GameEto> getGamesWithName(String name);
 }
