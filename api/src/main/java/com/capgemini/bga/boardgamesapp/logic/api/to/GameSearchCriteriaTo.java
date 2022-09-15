@@ -1,5 +1,6 @@
 package com.capgemini.bga.boardgamesapp.logic.api.to;
 
+import com.capgemini.bga.boardgamesapp.common.api.enums.Extension;
 import com.capgemini.bga.general.common.api.to.AbstractSearchCriteriaTo;
 import com.devonfw.module.basic.common.api.query.StringSearchConfigTo;
 
@@ -18,7 +19,7 @@ public class GameSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
     private BigDecimal complexity;
 
-    private Boolean extension;
+    private Extension extension;
 
     private StringSearchConfigTo nameOption;
 
@@ -80,7 +81,7 @@ public class GameSearchCriteriaTo extends AbstractSearchCriteriaTo {
      * @return extension
      */
 
-    public Boolean getExtension() {
+    public Extension getExtension() {
 
         return extension;
     }
@@ -89,7 +90,7 @@ public class GameSearchCriteriaTo extends AbstractSearchCriteriaTo {
      * @param extension setter for extension attribute
      */
 
-    public void setExtension(Boolean extension) {
+    public void setExtension(Extension extension) {
 
         this.extension = extension;
     }

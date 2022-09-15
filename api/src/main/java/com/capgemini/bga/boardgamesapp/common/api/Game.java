@@ -1,5 +1,6 @@
 package com.capgemini.bga.boardgamesapp.common.api;
 
+import com.capgemini.bga.boardgamesapp.common.api.enums.Extension;
 import com.capgemini.bga.general.common.api.ApplicationEntity;
 
 import java.math.BigDecimal;
@@ -45,13 +46,11 @@ public interface Game extends ApplicationEntity {
     /**
      * @return extension
      */
-
-    public boolean isExtension();
+    public Extension getExtension();
 
     /**
      * @param extension setter for extension attribute
      */
-
-    public void setExtension(boolean extension);
+    public void setExtension(Extension extension);
 
 }

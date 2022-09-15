@@ -1,5 +1,6 @@
 package com.capgemini.bga.boardgamesapp.logic.impl.usecase;
 
+import com.capgemini.bga.boardgamesapp.common.api.enums.Extension;
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GameEntity;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GameEto;
 import com.capgemini.bga.boardgamesapp.logic.api.usecase.UcManageGame;
@@ -42,10 +43,11 @@ public class UcManageGameImpl extends AbstractGameUc implements UcManageGame {
     public GameEto saveGame(GameEto game) {
 
         Objects.requireNonNull(game, "game");
+        if (game.getExtension() == null) {
+            game.setExtension(Extension.TRUE);
+        }
 
         GameEntity gameEntity = getBeanMapper().map(game, GameEntity.class);
-
-        // initialize, validate gameEntity here if necessary
         GameEntity resultEntity = getGameRepository().save(gameEntity);
         LOG.debug("Game with id '{}' has been created.", resultEntity.getId());
         return getBeanMapper().map(resultEntity, GameEto.class);
