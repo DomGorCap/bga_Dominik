@@ -18,7 +18,7 @@ public class GameSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
     private BigDecimal complexity;
 
-    private Boolean extension;
+    private String extension;
 
     private StringSearchConfigTo nameOption;
 
@@ -80,7 +80,7 @@ public class GameSearchCriteriaTo extends AbstractSearchCriteriaTo {
      * @return extension
      */
 
-    public Boolean getExtension() {
+    public String getExtension() {
 
         return extension;
     }
@@ -89,7 +89,7 @@ public class GameSearchCriteriaTo extends AbstractSearchCriteriaTo {
      * @param extension setter for extension attribute
      */
 
-    public void setExtension(Boolean extension) {
+    public void setExtension(String extension) {
 
         this.extension = extension;
     }

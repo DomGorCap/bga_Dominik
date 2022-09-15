@@ -18,7 +18,7 @@ public class GameEto extends AbstractEto implements Game {
 
     private BigDecimal complexity;
 
-    private boolean extension;
+    private String extension;
 
     @Override
     public String getName() {
@@ -57,15 +57,15 @@ public class GameEto extends AbstractEto implements Game {
     }
 
     @Override
-    public boolean isExtension() {
+    public void setExtension(String extension) {
 
-        return extension;
+        this.extension = extension;
     }
 
     @Override
-    public void setExtension(boolean extension) {
+    public String getExtension() {
 
-        this.extension = extension;
+        return extension;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class GameEto extends AbstractEto implements Game {
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         result = prime * result + ((this.cost == null) ? 0 : this.cost.hashCode());
         result = prime * result + ((this.complexity == null) ? 0 : this.complexity.hashCode());
-        result = prime * result + ((Boolean) extension).hashCode();
+        result = prime * result + ((this.extension == null) ? 0 : this.extension.hashCode());
         return result;
     }
 
@@ -115,7 +115,11 @@ public class GameEto extends AbstractEto implements Game {
         } else if (!this.complexity.equals(other.complexity)) {
             return false;
         }
-        if (this.extension != other.extension) {
+        if (this.extension == null) {
+            if (other.extension != null) {
+                return false;
+            }
+        } else if (!this.extension.equals(other.extension)) {
             return false;
         }
         return true;

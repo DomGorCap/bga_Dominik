@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -42,6 +43,15 @@ public class UcManageGameImpl extends AbstractGameUc implements UcManageGame {
     public GameEto saveGame(GameEto game) {
 
         Objects.requireNonNull(game, "game");
+
+        if(game.getExtension() == null) {
+            game.setExtension("TRUE");
+        }
+
+        String extensionValue = game.getExtension().toUpperCase(Locale.ROOT);
+        if(!extensionValue.equals("FALSE") && !extensionValue.equals("TRUE")) {
+            throw new IllegalArgumentException("Extension cannot have value other than \"TRUE\" or \"FALSE\"");
+        }
 
         GameEntity gameEntity = getBeanMapper().map(game, GameEntity.class);
 
