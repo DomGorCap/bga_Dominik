@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ws.rs.PathParam;
 import java.math.BigDecimal;
 
 /**
@@ -91,8 +92,8 @@ public class BoardgamesappRestServiceImpl implements BoardgamesappRestService {
     }
 
     @Override
-    public Page<GameEto> getGamesWithCostInRange(BigDecimal[] args) {
-        return this.boardgamesapp.getGamesWithCostInRange(args[0], args[1]);
+    public Page<GameEto> getGamesWithCostInRange(BigDecimal min, BigDecimal max) {
+        return this.boardgamesapp.getGamesWithCostInRange(min, max);
     }
 
 }

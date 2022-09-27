@@ -136,10 +136,11 @@ public interface BoardgamesappRestService {
     /**
      * Delegates to {@link Boardgamesapp#getGamesWithCostInRange}.
      *
-     * @param args min and max cost of the games to find.
+     * @param min minimal cost of the games to find.
+     * @param max maximal cost of the games to find.
      * @return the {@link Page list} of matching {@link GameEto}s.
      */
-    @Path("/query/2")
-    @POST
-    public Page<GameEto> getGamesWithCostInRange(BigDecimal[] args);
+    @Path("/query/2/{min}/{max}")
+    @GET
+    public Page<GameEto> getGamesWithCostInRange(@PathParam("min") BigDecimal min, @PathParam("max") BigDecimal max);
 }
