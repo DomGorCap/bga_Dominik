@@ -4,11 +4,13 @@ import com.capgemini.bga.boardgamesapp.common.api.Game;
 import com.capgemini.bga.general.dataaccess.api.ApplicationPersistenceEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "game")
+@NamedQuery(name = "GameEntity.getGamesWithPriceInRange", query = "SELECT g FROM GameEntity g WHERE g.cost BETWEEN :min AND :max")
 public class GameEntity extends ApplicationPersistenceEntity implements Game {
 
     private static final long serialVersionUID = 1L;

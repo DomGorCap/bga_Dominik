@@ -6,19 +6,54 @@ import com.devonfw.module.jpa.dataaccess.api.QueryUtil;
 import com.devonfw.module.jpa.dataaccess.api.data.DefaultRepository;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.querydsl.core.alias.Alias.$;
+import static com.querydsl.core.alias.Alias.alias;
 
 /**
  * {@link DefaultRepository} for {@link GameEntity}
  */
-public interface GameRepository extends DefaultRepository<GameEntity> {
+public interface GameRepository extends DefaultRepository<GameEntity>, CustomGameRepository {
+
+    /**
+     * @param min minimal cost of the {@link GameEntity} to find.
+     * @param max maximal cost of the {@link GameEntity} to find.
+     * @return the {@link List} of the {@link GameEntity} objects that matched the search.
+     */
+    List<GameEntity> findByCostBetween(BigDecimal min, BigDecimal max);
+
+    /**
+     * @param min minimal cost of the {@link GameEntity} to find.
+     * @param max maximal cost of the {@link GameEntity} to find.
+     * @return the {@link Page} of the {@link GameEntity} objects that matched the search.
+     */
+    default Page<GameEntity> findByCostBetweenPage(BigDecimal min, BigDecimal max) {
+        List<GameEntity> resultList = findByCostBetween(min, max);
+        return new PageImpl<>(resultList, PageRequest.of(0, Integer.MAX_VALUE), resultList.size());
+    }
+
+    /**
+     * @param min minimal cost of the {@link GameEntity} to find.
+     * @param max maximal cost of the {@link GameEntity} to find.
+     * @return the {@link Page} of the {@link GameEntity} objects that matched the search.
+     */
+    default Page<GameEntity> dslQuery(BigDecimal min, BigDecimal max) {
+
+        GameEntity alias = newDslAlias();
+        JPAQuery<GameEntity> query = newDslQuery(alias);
+
+        query.where($(alias.getCost()).between(min, max));
+
+        return QueryUtil.get().findPaginated(PageRequest.of(0, Integer.MAX_VALUE), query, true);
+    }
 
     /**
      * @param criteria the {@link GameSearchCriteriaTo} with the criteria to search.

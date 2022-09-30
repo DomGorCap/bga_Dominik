@@ -4,6 +4,7 @@ import com.capgemini.bga.boardgamesapp.logic.api.to.GameEto;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GameSearchCriteriaTo;
 import org.springframework.data.domain.Page;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface UcFindGame {
@@ -23,5 +24,14 @@ public interface UcFindGame {
      * @return the {@link List} of matching {@link GameEto}s.
      */
     Page<GameEto> findGames(GameSearchCriteriaTo criteria);
+
+    /**
+     * Returns a paginated list of Games with cost in range.
+     *
+     * @param min minimal price of game to find.
+     * @param max maximal price of game to find.
+     * @return the {@link List} of matching {@link GameEto}s.
+     */
+    Page<GameEto> getGamesWithCostInRange(BigDecimal min, BigDecimal max);
 
 }

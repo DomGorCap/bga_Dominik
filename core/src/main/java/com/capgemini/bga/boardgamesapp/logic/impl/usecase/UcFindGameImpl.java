@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 /**
@@ -46,6 +47,13 @@ public class UcFindGameImpl extends AbstractGameUc implements UcFindGame {
     public Page<GameEto> findGames(GameSearchCriteriaTo criteria) {
 
         Page<GameEntity> games = getGameRepository().findByCriteria(criteria);
+        return mapPaginatedEntityList(games, GameEto.class);
+    }
+
+    @Override
+    public Page<GameEto> getGamesWithCostInRange(BigDecimal min, BigDecimal max) {
+
+        Page<GameEntity> games = getGameRepository().namedQuery_ii(min, max);
         return mapPaginatedEntityList(games, GameEto.class);
     }
 
