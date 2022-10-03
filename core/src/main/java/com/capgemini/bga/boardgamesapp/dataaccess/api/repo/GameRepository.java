@@ -1,13 +1,10 @@
 package com.capgemini.bga.boardgamesapp.dataaccess.api.repo;
 
-import com.capgemini.bga.boardgamesapp.common.api.GamePlay;
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GameEntity;
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GamePlayEntity;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GameSearchCriteriaTo;
 import com.devonfw.module.jpa.dataaccess.api.QueryUtil;
 import com.devonfw.module.jpa.dataaccess.api.data.DefaultRepository;
-import com.querydsl.core.annotations.QueryEntity;
-import com.querydsl.core.types.EntityPath;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;

@@ -29,7 +29,7 @@ public interface UcFindGame {
      * Returns a paginated list of Games with any gameplay lasting more than specified value.
      *
      * @param duration of the gameplay where the game was played.
-     * @return the {@link List} of matching {@link GameEto}s.
+     * @return the {@link Page} of matching {@link GameEto}s.
      */
     Page<GameEto> getGamesWithAnyGamePlayLonger(BigDecimal duration);
 

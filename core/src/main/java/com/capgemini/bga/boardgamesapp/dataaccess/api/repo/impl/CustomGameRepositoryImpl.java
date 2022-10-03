@@ -1,7 +1,8 @@
-package com.capgemini.bga.boardgamesapp.dataaccess.api.repo;
+package com.capgemini.bga.boardgamesapp.dataaccess.api.repo.impl;
 
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GameEntity;
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GamePlayEntity;
+import com.capgemini.bga.boardgamesapp.dataaccess.api.repo.CustomGameRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
