@@ -47,8 +47,7 @@ public interface GamePlayRepository extends DefaultRepository<GamePlayEntity>, C
         GamePlayEntity gamePlayAlias = newDslAlias();
 
         JPAQuery<GamePlayEntity> query = newDslQuery(gamePlayAlias)
-                .where($(gamePlayAlias.getGame().getCost()).gt(min)
-                        .or($(gamePlayAlias.getGame().getCost()).eq(min)));
+                .where($(gamePlayAlias.getGame().getCost()).goe(min));
 
         return QueryUtil.get().findPaginated(PageRequest.of(0, Integer.MAX_VALUE), query, true);
     }

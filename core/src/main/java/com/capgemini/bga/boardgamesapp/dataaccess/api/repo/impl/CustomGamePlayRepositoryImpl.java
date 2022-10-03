@@ -1,7 +1,7 @@
-package com.capgemini.bga.boardgamesapp.dataaccess.api.repo;
+package com.capgemini.bga.boardgamesapp.dataaccess.api.repo.impl;
 
-import com.capgemini.bga.boardgamesapp.dataaccess.api.GameEntity;
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GamePlayEntity;
+import com.capgemini.bga.boardgamesapp.dataaccess.api.repo.CustomGamePlayRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -12,11 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
-import javax.ws.rs.core.MediaType;
 import java.math.BigDecimal;
 import java.util.List;
 

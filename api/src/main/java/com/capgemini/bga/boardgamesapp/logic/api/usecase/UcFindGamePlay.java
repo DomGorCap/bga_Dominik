@@ -31,7 +31,7 @@ public interface UcFindGamePlay {
      * Returns a paginated list of GamePlays where the cost of the game played is bigger or equal to the specified value.
      *
      * @param minGameCost minimal cost of the games played in gameplay to find.
-     * @return the {@link List} of matching {@link GamePlayEto}s.
+     * @return the {@link Page} of matching {@link GamePlayEto}s.
      */
     Page<GamePlayEto> getGamePlaysWithMinGameCost(BigDecimal minGameCost);
 
