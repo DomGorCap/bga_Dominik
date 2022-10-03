@@ -1,6 +1,8 @@
 package com.capgemini.bga.boardgamesapp.logic.impl.usecase;
 
+import com.capgemini.bga.boardgamesapp.dataaccess.api.GameEntity;
 import com.capgemini.bga.boardgamesapp.dataaccess.api.GamePlayEntity;
+import com.capgemini.bga.boardgamesapp.logic.api.to.GameEto;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GamePlayEto;
 import com.capgemini.bga.boardgamesapp.logic.api.to.GamePlaySearchCriteriaTo;
 import com.capgemini.bga.boardgamesapp.logic.api.usecase.UcFindGamePlay;
@@ -14,6 +16,9 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Named;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -47,6 +52,12 @@ public class UcFindGamePlayImpl extends AbstractGamePlayUc implements UcFindGame
 
         Page<GamePlayEntity> gameplays = getGamePlayRepository().findByCriteria(criteria);
         return mapPaginatedEntityList(gameplays, GamePlayEto.class);
+    }
+
+    @Override
+    public Page<GamePlayEto> getGamePlaysWithMinGameCost(BigDecimal minGameCost) {
+        Page<GamePlayEntity> games = getGamePlayRepository().criteriaApiQuery_iii(minGameCost);
+        return mapPaginatedEntityList(games, GamePlayEto.class);
     }
 
 }

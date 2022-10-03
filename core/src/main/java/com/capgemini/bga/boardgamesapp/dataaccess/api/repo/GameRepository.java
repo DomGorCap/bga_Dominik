@@ -12,13 +12,15 @@ import org.springframework.data.domain.Sort.Order;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.querydsl.core.alias.Alias.$;
+import static com.querydsl.core.alias.Alias.alias;
 
 /**
  * {@link DefaultRepository} for {@link GameEntity}
  */
-public interface GameRepository extends DefaultRepository<GameEntity> {
+public interface GameRepository extends DefaultRepository<GameEntity>, CustomGameRepository {
 
     /**
      * @param criteria the {@link GameSearchCriteriaTo} with the criteria to search.
