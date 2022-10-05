@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "game")
-@NamedQuery(name = "GameEntity.getGamesWithAnyGamePlayLonger",query = "SELECT DISTINCT g FROM GameEntity g, GamePlayEntity gp WHERE gp.duration>:duration AND gp.game=g")
+@NamedQuery(name = "GameEntity.getGamesWithAnyGamePlayLonger",query = "SELECT DISTINCT gp.game FROM GamePlayEntity gp WHERE gp.duration>=:duration")
 public class GameEntity extends ApplicationPersistenceEntity implements Game {
 
     private static final long serialVersionUID = 1L;
