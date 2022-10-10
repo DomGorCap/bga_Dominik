@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.math.BigDecimal;
 
 /**
  * The service implementation for REST calls in order to execute the logic of component {@link Boardgamesapp}.
@@ -87,6 +88,11 @@ public class BoardgamesappRestServiceImpl implements BoardgamesappRestService {
     public Page<PlayerEto> findPlayers(PlayerSearchCriteriaTo searchCriteriaTo) {
 
         return this.boardgamesapp.findPlayers(searchCriteriaTo);
+    }
+
+    @Override
+    public Page<GameEto> getGamesWithAnyGamePlayLonger(BigDecimal duration) {
+        return this.boardgamesapp.getGamesWithAnyGamePlayLonger(duration);
     }
 
 }

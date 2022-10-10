@@ -18,7 +18,7 @@ import static com.querydsl.core.alias.Alias.$;
 /**
  * {@link DefaultRepository} for {@link GamePlayEntity}
  */
-public interface GamePlayRepository extends DefaultRepository<GamePlayEntity> {
+public interface GamePlayRepository extends DefaultRepository<GamePlayEntity>, CustomGamePlayRepository {
 
     /**
      * @param criteria the {@link GamePlaySearchCriteriaTo} with the criteria to search.
